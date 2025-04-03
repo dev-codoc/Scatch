@@ -16,7 +16,6 @@ if (process.env.NODE_ENV === "development") {
               .send("You don't have the permission to create a owner.")
         }
 
-
         let {fullname, email, password} = req.body;
         let createdOwner = await ownerModel.create({
             fullname,
@@ -27,6 +26,9 @@ if (process.env.NODE_ENV === "development") {
     })
 }
 
-
+router.get("/admin", function(req, res){
+    let success = req.flash("success");
+    res.render("createproducts", { success });
+});
 
 module.exports = router;
