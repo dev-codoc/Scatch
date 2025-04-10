@@ -6,7 +6,7 @@ const generateToken = require("../utils/generateToken")
 module.exports.registerUser = async (req, res) => {
     try {
         let { email, password, fullname } = req.body;
-        console.log(email, password, fullname)
+        // console.log(email, password, fullname) // Debugging purposes
 
         let user = await userModel.findOne({ email:email })
         if (user) return res.status(400).send("User already exists")
