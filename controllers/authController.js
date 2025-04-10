@@ -6,7 +6,7 @@ const generateToken = require("../utils/generateToken")
 module.exports.registerUser = async (req, res) => {
     try {
         let { email, password, fullname } = req.body;
-
+        console.log(email, password, fullname)
 
         let user = await userModel.findOne({ email:email })
         if (user) return res.status(400).send("User already exists")
@@ -41,16 +41,16 @@ module.exports.loginUser = async (req, res) => {
         let {email, password} = req.body;
 
         let user = await userModel.findOne({email: email})
-        if(!user) return res.status(401).send("1Invalid email or password")
+        if(!user) return res.status(401).send("you have to login first")
 
         bcrypt.compare(password, user.password, (err, result) => {
             if(result) {
                 let token = generateToken(user);
                 res.cookie("token", token)
-                res.send("Logged in successfully")
+                res.send("Logged in successfully")                
             }
             else {
-                return res.status(401).send("2Invalid email or password")
+                return res.status(401).send("Non-valid email or password")
             }
         })
     } catch(err) {
